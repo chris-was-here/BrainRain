@@ -9,14 +9,16 @@ rectangle.style.border = '1px solid green'; // Set the border color to green
 rectangle.style.position = 'absolute';
 rectangle.style.left = '150px';
 rectangle.style.top = '100px';
-dartboard.appendChild(rectangle);
+rectangle.style.display = 'none';
+document.body.appendChild(rectangle);
 
 var arrow = document.createElement('div');
 arrow.style.position = 'absolute';
-arrow.style.width = '50px'; // Length of the line
-arrow.style.height = '12px'; // Thickness of the line
-arrow.style.backgroundColor = 'red'; // Color of the line
+arrow.style.width = '1px'; // Length of the line
+arrow.style.height = '50px'; // Thickness of the line
+arrow.style.border = '1px solid red'; // Color of the line
 arrow.style.transformOrigin = 'center center'; // Set the rotation origin to the center
+arrow.style.display = 'none';
 document.body.appendChild(arrow);
 
 function throwDart() {
