@@ -28,20 +28,21 @@
             left: 50%;
             height: 5vmin;
             width: 5vmin;
-            background: red;
+            background: url('hirn.png') no-repeat center center;
+            background-size: cover;
             border-radius: 50%;
             transform: translate(-50%, -50%);
         }
 
-        #rectangle {
+        /* #rectangle {
             position: absolute;
-            top: 25%;
-            left: 40%;
+            top: 30%;
+            left: 45%;
             height: 5vmin;
             width: 10vmin;
             border: 2px solid green;
             transform: translate(-50%, -50%);
-        }
+        } */
     </style>
 </head>
 
@@ -49,67 +50,14 @@
     <h1>Lass Hirn regnen!</h1>
     <div id="dartboard">
         <div id="dart"></div>
-        <div id="rectangle"></div>
     </div>
+    <!-- <div id="rectangle"></div> -->
     <button id="gameButton" onclick="throwDart()">Throw Dart</button>
     <p id="score">Score: 0</p>
     <p id="totalScore">Total Score: 0</p>
+    <p id="distance">Distance: 0</p>
+    <script src="darts.js"></script>
 
-    <script>
-        var score = 0;
-        var totalScore = 0;
-        var shots = 0;
-        function throwDart() {
-            if (shots >= 3) {
-                resetGame();
-                return;
-            }
-            shots++;
-            var dartboard = document.getElementById('dartboard');
-            var dart = document.getElementById('dart');
-            dart.style.display = 'block'; // Show the dart when throwing
-            var x = Math.random() * window.innerWidth;
-            var y = Math.random() * window.innerHeight;
-            var targetX = Math.random() * dartboard.offsetWidth;
-            var targetY = Math.random() * dartboard.offsetHeight;
-            var dx = (targetX - x) / 100;
-            var dy = (targetY - y) / 100;
-            var i = 0;
-            var interval = setInterval(function () {
-                if (i >= 100) {
-                    clearInterval(interval);
-                    var distanceToCenter = Math.hypot(targetX - dartboard.offsetWidth / 2, targetY - dartboard.offsetHeight / 2);
-                    if (distanceToCenter < dartboard.offsetWidth / 2) {
-                        score++;
-                        totalScore++;
-                    }
-                    document.getElementById('score').textContent = 'Score: ' + score;
-                    document.getElementById('totalScore').textContent = 'Total Score: ' + totalScore;
-                    if (shots === 3) {
-                        document.getElementById('gameButton').textContent = 'Reset Game';
-                    }
-                } else {
-                    x += dx;
-                    y += dy;
-                    dart.style.left = x + 'px';
-                    dart.style.top = y + 'px';
-                    i++;
-                }
-            }, 10);
-        }
-        function resetGame() {
-            score = 0;
-            totalScore = 0;
-            shots = 0;
-            var dart = document.getElementById('dart');
-            dart.style.left = '50%';
-            dart.style.top = '50%';
-            dart.style.display = 'none'; // Hide the dart when resetting the game
-            document.getElementById('score').textContent = 'Score: ' + score;
-            document.getElementById('totalScore').textContent = 'Total Score: ' + totalScore;
-            document.getElementById('gameButton').textContent = 'Throw Dart';
-        }
-    </script>
 </body>
 
 </html>
