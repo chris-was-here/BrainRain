@@ -54,12 +54,11 @@
     <button id="gameButton" onclick="throwDart()">Throw Dart</button>
     <p id="score">Score: 0</p>
     <p id="totalScore">Total Score: 0</p>
-    <p id="distance">Distance: 0</p>
+
     <script>
         var score = 0;
         var totalScore = 0;
         var shots = 0;
-
         function throwDart() {
             if (shots >= 3) {
                 resetGame();
@@ -68,7 +67,6 @@
             shots++;
             var dartboard = document.getElementById('dartboard');
             var dart = document.getElementById('dart');
-            var rectangle = document.getElementById('rectangle');
             dart.style.display = 'block'; // Show the dart when throwing
             var x = Math.random() * window.innerWidth;
             var y = Math.random() * window.innerHeight;
@@ -80,20 +78,15 @@
             var interval = setInterval(function () {
                 if (i >= 100) {
                     clearInterval(interval);
-                    var distanceToRectangle = Math.hypot(targetX - rectangle.offsetLeft - rectangle.offsetWidth / 2, targetY - rectangle.offsetTop - rectangle.offsetHeight / 2);
-                    document.getElementById('distance').textContent = 'Distance: ' + Math.round(distanceToRectangle);
-                    if (distanceToRectangle < rectangle.offsetWidth / 2) {
-                        score = 88;
-                        document.getElementById('message').textContent = 'Passt aber nicht';
-                    } else {
-                        score = Math.max(0, 88 - distanceToRectangle);
-                        document.getElementById('message').textContent = '';
+                    var distanceToCenter = Math.hypot(targetX - dartboard.offsetWidth / 2, targetY - dartboard.offsetHeight / 2);
+                    if (distanceToCenter < dartboard.offsetWidth / 2) {
+                        score++;
+                        totalScore++;
                     }
                     document.getElementById('score').textContent = 'Score: ' + score;
-                    totalScore += score;
                     document.getElementById('totalScore').textContent = 'Total Score: ' + totalScore;
                     if (shots === 3) {
-                        document.getElementById('gameButton').textContent = 'Wahlen vorziehen';
+                        document.getElementById('gameButton').textContent = 'Reset Game';
                     }
                 } else {
                     x += dx;
@@ -115,7 +108,6 @@
             document.getElementById('score').textContent = 'Score: ' + score;
             document.getElementById('totalScore').textContent = 'Total Score: ' + totalScore;
             document.getElementById('gameButton').textContent = 'Throw Dart';
-            document.getElementById('message').textContent = '';
         }
     </script>
 </body>
